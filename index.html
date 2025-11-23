@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/nxe97v.png">
+  <a href="https://www.foroactivo.com" target="_blank"></a>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedChan - EOFED </title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #0a0a0a;
+      color: #e0e0e0;
+      line-height: 1.5;
+      font-size: 14px;
+      background-image: linear-gradient(to bottom, #1a0000, #0a0a0a);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 15px;
+    }
+    
+    header {
+      background-color: #1a0000;
+      border: 1px solid #ff0000;
+      padding: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+    
+    h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+      color: #ff3333;
+      text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    }
+    
+    .board-info {
+      font-size: 13px;
+      color: #cc3333;
+    }
+    
+    .thread {
+      background-color: #111111;
+      border: 1px solid #660000;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .thread:hover {
+      border-color: #ff3333;
+      box-shadow: 0 0 8px rgba(255, 0, 0, 0.2);
+    }
+    
+    .post {
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed #330000;
+      position: relative;
+    }
+    
+    .post:last-child {
+      border-bottom: none;
+    }
+    
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    
+    .post-subject {
+      font-weight: bold;
+      color: #ff5555;
+    }
+    
+    .post-name {
+      color: #ff3333;
+      font-weight: bold;
+    }
+    
+    .post-date {
+      color: #cc3333;
+    }
+    
+    .post-id {
+      color: #ff5555;
+      cursor: pointer;
+      background-color: #330000;
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+    
+    .post-content {
+      margin-bottom: 8px;
+      color: #e0e0e0;
+      overflow: hidden;
+    }
+    
+    .post-container {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+    
+    .post-file {
+      flex: 0 0 auto;
+      width: 125px;
+      height: 125px;
+      overflow: hidden;
+      border-radius: 3px;
+      position: relative;
+    }
+    
+    .post-file img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 1px solid #660000;
+      border-radius: 3px;
+    }
+    
+    .file-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(51, 0, 0, 0.8);
+      color: #cc3333;
+      font-size: 10px;
+      padding: 2px 4px;
+      text-align: center;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+    
+    .post-text {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .quote {
+      color: #ff8888;
+    }
+    
+    .new-reply {
+      background-color: #111111;
+      border: 1px solid #660000;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 5px;
+    }
+    
+    .new-reply h3 {
+      color: #ff3333;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #330000;
+      padding-bottom: 5px;
+    }
+    
+    .form-group {
+      margin-bottom: 12px;
+    }
+    
+    label {
+      display: inline-block;
+      width: 80px;
+      color: #ff5555;
+    }
+    
+    input[type="text"], textarea {
+      width: 100%;
+      max-width: 400px;
+      padding: 8px;
+      border: 1px solid #660000;
+      background-color: #1a0000;
+      color: #e0e0e0;
+      border-radius: 3px;
+    }
+    
+    textarea {
+      height: 120px;
+      resize: vertical;
+    }
+    
+    button {
+      background-color: #660000;
+      border: 1px solid #ff3333;
+      padding: 8px 15px;
+      cursor: pointer;
+      color: #ffffff;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #ff3333;
+      box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 12px;
+      color: #cc3333;
+      padding: 10px;
+      border-top: 1px solid #330000;
+    }
+    
+    .thread-controls {
+      text-align: right;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    
+    .thread-controls a {
+      color: #ff5555;
+      text-decoration: none;
+      margin-left: 15px;
+      padding: 3px 8px;
+      background-color: #330000;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    .thread-controls a:hover {
+      background-color: #660000;
+      text-decoration: none;
+    }
+    
+    .thread-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .thread-preview {
+      background-color: #111111;
+      border: 1px solid #660000;
+      padding: 12px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .thread-preview:hover {
+      border-color: #ff3333;
+      transform: translateY(-2px);
+    }
+    
+    .thread-preview .post-subject {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    
+    .thread-preview .post-content {
+      font-size: 13px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #cc3333;
+    }
+    
+    .online-users {
+      background-color: #111111;
+      border: 1px solid #660000;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      font-size: 13px;
+    }
+    
+    .online-users span {
+      color: #ff3333;
+      font-weight: bold;
+    }
+    
+    .board-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    
+    .board-nav a {
+      color: #ff5555;
+      text-decoration: none;
+      padding: 5px 10px;
+      background-color: #330000;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .board-nav a:hover {
+      background-color: #660000;
+    }
+    
+    .category-section {
+      margin-bottom: 30px;
+    }
+    
+    .category-title {
+      color: #ff3333;
+      font-size: 22px;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #660000;
+    }
+    
+    .category-title i {
+      margin-right: 10px;
+    }
+    
+    .thread-title {
+      color: #ff5555;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    
+    .thread-content {
+      color: #e0e0e0;
+      margin-bottom: 10px;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    .upload-status {
+      margin-top: 5px;
+      font-size: 12px;
+      color: #cc3333;
+    }
+    
+    .category-header {
+      background-color: #1a0000;
+      border: 1px solid #ff0000;
+      padding: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+    
+    .category-header h2 {
+      color: #ff3333;
+      margin-bottom: 10px;
+    }
+    
+    .back-btn {
+      background-color: #330000;
+      color: #ff5555;
+      border: 1px solid #660000;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover {
+      background-color: #660000;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #ff5555;
+    }
+    
+    .error {
+      background-color: #330000;
+      color: #ff5555;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    
+    .success {
+      background-color: #003300;
+      color: #55ff55;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    
+    .image-preview {
+      margin-top: 10px;
+      text-align: center;
+    }
+    
+    .image-preview img {
+      max-width: 200px;
+      max-height: 200px;
+      border: 1px solid #660000;
+      border-radius: 3px;
+      object-fit: cover;
+    }
+    
+    /* Nuevos estilos para botones de comentar */
+    .comment-btn {
+      background-color: #330000;
+      color: #ff5555;
+      border: 1px solid #660000;
+      padding: 4px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-left: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .comment-btn:hover {
+      background-color: #660000;
+    }
+    
+    .comment-form {
+      background-color: #1a0000;
+      border: 1px solid #660000;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 5px;
+      display: none;
+    }
+    
+    .comment-form.active {
+      display: block;
+    }
+    
+    .comment-form h4 {
+      color: #ff3333;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    
+    .comment-header {
+      background-color: #330000;
+      padding: 8px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: #ff8888;
+    }
+    
+    .comment-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+    
+    /* Estilos para comentarios/replies */
+    .replies {
+      margin-top: 15px;
+      padding-left: 20px;
+      border-left: 2px solid #330000;
+    }
+    
+    .reply {
+      background-color: #1a0000;
+      border: 1px solid #330000;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 3px;
+      position: relative;
+    }
+    
+    .reply-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+    
+    .reply-name {
+      color: #ff5555;
+      font-weight: bold;
+    }
+    
+    .reply-date {
+      color: #cc3333;
+    }
+    
+    .reply-id {
+      color: #ff5555;
+      background-color: #330000;
+      padding: 1px 4px;
+      border-radius: 2px;
+      font-size: 10px;
+    }
+    
+    .reply-content {
+      color: #e0e0e0;
+      font-size: 13px;
+    }
+    
+    /* Botón para responder a comentarios específicos */
+    .reply-btn {
+      background-color: #220000;
+      color: #ff5555;
+      border: 1px solid #440000;
+      padding: 2px 6px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 10px;
+      margin-top: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .reply-btn:hover {
+      background-color: #440000;
+    }
+    
+    /* Estilos para respuestas anidadas */
+    .nested-replies {
+      margin-top: 10px;
+      padding-left: 15px;
+      border-left: 1px solid #330000;
+    }
+    
+    .nested-reply {
+      background-color: #150000;
+      border: 1px solid #220000;
+      padding: 8px;
+      margin-bottom: 8px;
+      border-radius: 2px;
+    }
+    
+    /* Estilos para asegurar la interactividad */
+    input, textarea, button, a {
+      -webkit-user-select: auto !important;
+      -moz-user-select: auto !important;
+      -ms-user-select: auto !important;
+      user-select: auto !important;
+    }
+    
+    .thread-preview, .board-nav a, button {
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    
+    @media (max-width: 768px) {
+      .thread-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .post-header {
+        flex-direction: column;
+      }
+      
+      .post-header > div {
+        margin-bottom: 5px;
+      }
+      
+      .container {
+        padding: 10px;
+      }
+      
+      .post-container {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .post-file {
+        width: 100%;
+        height: 150px;
+      }
+      
+      .post-text {
+        width: 100%;
+      }
+      
+      .replies {
+        padding-left: 10px;
+      }
+      
+      .comment-controls {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .comment-controls button {
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .board-nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .board-nav a {
+        text-align: center;
+      }
+      
+      .post-header > div {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .comment-btn {
+        margin-left: 0;
+        margin-top: 5px;
+      }
+    }
+    
+    /* Estilos para estadísticas del foro */
+.forum-stats {
+  background-color: #111111;
+  border: 1px solid #660000;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.stat-item i {
+  color: #ff5555;
+  font-size: 16px;
+}
+
+.stat-label {
+  color: #cc3333;
+  font-weight: bold;
+}
+
+.stat-value {
+  color: #ff3333;
+  font-weight: bold;
+  background-color: #330000;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .stat-item {
+    justify-content: center;
+  }
+}
+    
+    #post-file {
+    display: none;
+}
+
+#post-file {
+    display: none;
+}
+
+/* Estilo del label como botón */
+#post-file + label {
+    background: #e60000;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #aa0000;
+    transition: 0.25s ease;
+    display: inline-block;
+    width: 220px;         /* Más ancho */
+    text-align: center;
+}
+
+/* Hover con animación */
+#post-file + label:hover {
+    background: #c40000;
+    border-color: #7a0000;
+    box-shadow: 0px 0px 6px rgba(255, 0, 0, .5);
+    transform: scale(1.02);
+}
+
+/* Efecto al presionar */
+#post-file + label:active {
+    transform: scale(0.97);
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>/Eofed/ - Tablón</h1>
+      <div class="board-info">Foro De Discusión General De Escupo, Odio, Funas, Expuestos y Denuncias</div>
+    </header>
+    
+    <div class="online-users">
+      Usuarios en línea: <span id="online-count">0</span> 
+    </div>
+    
+    <div class="board-nav">
+      <a href="#" id="refresh-btn">Server Temporal</a>
+      <a href="#" id="new-thread-btn">Información</a>
+      <a href="#" id="rules-btn">File RedChan</a>
+    </div>
+    
+     <!-- Vista principal con categorías -->
+    <div id="main-view">
+      <div class="thread">
+        <div class="post">
+          <div class="post-header">
+            <div>
+              <span class="post-subject">Para que sirve este tablon ?</span>
+              <span class="post-name">Anuncio</span>
+            </div>
+            <div>
+              <span class="post-date">23/noviembre/2025</span>
+              <span class="post-id">1</span>
+            </div>
+          </div>
+          <div class="post-content">
+            <div class="post-container">
+              <div class="post-file">
+                <img src="https://files.catbox.moe/jowh8q.jpg" >
+                <div class="file-info">BSZ HACKERS</div>
+              </div>
+              <div class="post-text">
+                <p>Se creo con el fin de comentar el odio que sientes , da la exprecion</p>
+                <p>Especificaciones:</p>
+                <ul>
+                  <li>comenta no te quedes callado</li>
+                  <li>se anonymo no me hago responsable</li>
+                  <li>no hay reglas</li>
+                  <li>entre mas informacion mejor</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>       
+      </div>
+      
+      <section class="category-section">
+        <h2 class="category-title">
+          <i class="fas fa-globe"></i> Países
+        </h2>
+        <div class="thread-list">
+          <div class="thread-preview" data-category="mexico" data-id="2">
+            <h3 class="thread-title">México</h3>
+            <p class="thread-content">Discusión sobre la cultura, gastronomía y lugares turísticos de México.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="chile" data-id="3">
+            <h3 class="thread-title">Chile</h3>
+            <p class="thread-content">Conversación sobre la geografía única y la economía chilena.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="argentina" data-id="4">
+            <h3 class="thread-title">Argentina</h3>
+            <p class="thread-content">Debate sobre el tango, el fútbol y la situación política actual.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="costarica" data-id="5">
+            <h3 class="thread-title">Costa Rica</h3>
+            <p class="thread-content">Intercambio sobre ecoturismo y biodiversidad en Costa Rica.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="brasil" data-id="6">
+            <h3 class="thread-title">Brasil</h3>
+            <p class="thread-content">Carnaval, playas y la selva amazónica: todo sobre Brasil.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="colombia" data-id="7">
+            <h3 class="thread-title">Colombia</h3>
+            <p class="thread-content">Café, música y ciudades vibrantes: explorando Colombia.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="peru" data-id="8">
+            <h3 class="thread-title">Perú</h3>
+            <p class="thread-content">Machu Picchu, gastronomía y la rica historia peruana.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="uruguay" data-id="9">
+            <h3 class="thread-title">Uruguay</h3>
+            <p class="thread-content">Playas, tranquilidad y desarrollo en Uruguay.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="ecuador" data-id="10">
+            <h3 class="thread-title">Ecuador</h3>
+            <p class="thread-content">Islas Galápagos y la diversidad geográfica de Ecuador.</p>
+            <div class="thread-meta"></div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="category-section">
+        <h2 class="category-title">
+          <i class="fas fa-scale-balanced"></i> Denuncias y Conflictos
+        </h2>
+        <div class="thread-list">
+          <div class="thread-preview" data-category="funas" data-id="11">
+            <h3 class="thread-title">Funas en redes sociales</h3>
+            <p class="thread-content">¿Son las funas una forma efectiva de justicia social o acoso digital?</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="odio" data-id="12">
+            <h3 class="thread-title">Odio en internet</h3>
+            <p class="thread-content">Cómo combatir el discurso de odio en plataformas digitales.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="laborales" data-id="13">
+            <h3 class="thread-title">Denuncias laborales</h3>
+            <p class="thread-content">Comparte experiencias y consejos sobre denuncias en el ámbito laboral.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="acoso" data-id="14">
+            <h3 class="thread-title">Acoso escolar</h3>
+            <p class="thread-content">Estrategias para identificar y denunciar casos de bullying.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="discriminacion" data-id="15">
+            <h3 class="thread-title">Discriminación</h3>
+            <p class="thread-content">Casos y formas de combatir la discriminación en nuestra sociedad.</p>
+            <div class="thread-meta"></div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="category-section">
+        <h2 class="category-title">
+          <i class="fas fa-briefcase"></i> Temas Varios
+        </h2>
+        <div class="thread-list">
+          <div class="thread-preview" data-category="politica" data-id="16">
+            <h3 class="thread-title">Política actual</h3>
+            <p class="thread-content">Debate sobre las últimas decisiones y tendencias políticas.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="tecnologia" data-id="17">
+            <h3 class="thread-title">Tecnología</h3>
+            <p class="thread-content">Avances tecnológicos que están cambiando nuestro mundo.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="medioambiente" data-id="18">
+            <h3 class="thread-title">Medio ambiente</h3>
+            <p class="thread-content">Cambio climático y acciones para proteger nuestro planeta.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="educacion" data-id="19">
+            <h3 class="thread-title">Educación</h3>
+            <p class="thread-content">Nuevos métodos de enseñanza y reformas educativas.</p>
+            <div class="thread-meta"></div>
+          </div>
+          
+          <div class="thread-preview" data-category="economia" data-id="20">
+            <h3 class="thread-title">Economía</h3>
+            <p class="thread-content">Tendencias económicas globales y su impacto local.</p>
+            <div class="thread-meta"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Vista de categoría específica -->
+    <div id="category-view" class="hidden">
+      <div class="category-header">
+        <button class="back-btn" id="back-btn"><i class="fas fa-arrow-left"></i> Volver</button>
+        <h2 id="category-name">Categoría</h2>
+        <p id="category-description">Descripción de la categoría</p>
+      </div>
+      
+      <div id="category-threads">
+        <!-- Los hilos de la categoría se cargarán aquí -->
+      </div>
+      
+      <div class="new-reply">
+        <h3>Nueva publicación</h3>
+        <form id="category-form">
+          <input type="hidden" id="category-id" name="categoryId">
+          <input type="hidden" id="category-key" name="categoryKey">
+          <div class="form-group">
+            <label for="post-name">Nombre:</label>
+            <input type="text" id="post-name" name="name" placeholder="Anónimo">
+          </div>
+          <div class="form-group">
+            <label for="post-subject">Asunto:</label>
+            <input type="text" id="post-subject" name="subject" required>
+          </div>
+          <div class="form-group">
+            <label for="post-comment">Comentario:</label><br>
+            <textarea id="post-comment" name="comment" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="post-file">Imagen De Avatar:</label>
+       <input type="file" id="post-file" name="file" accept="image/png, image/jpeg, image/webp, image/gif">
+       <label for="post-file"> Subir Imagen</label>
+
+            <div class="upload-status" id="post-upload-status"></div>
+            <div class="image-preview" id="image-preview"></div>
+          </div>
+          <button type="submit" id="submit-btn">Enviar</button>
+        </form>
+      </div>
+    </div>
+    
+    <footer>
+      <p>Tablón Eofed | BSZ App</p>
+    </footer>
+  </div>
+
+<script>
+// Configuración de la API base
+const API_BASE = 'https://6921676d512fb4140be0219a.mockapi.io/Bsz/0283084921089434584613846548413484651040848484084646874049/849084984984894949489/74561684/7984849498490947960408498489484874616840/Tablon/Eofed/8230918297491284982198940289190840981048-1723878126867827183791879308120989309128409897289748091829087856238741298409827543897895787418978941890418308693478674319-78413798574389758349719578947857438768437198589083019093289579832787593790289089490820948932753785782375098581098501989372985773289758738927589279750932809580928759782378957893275972975893725937256286189701987091870918819028097230975923-3297483748273947328974893278975375865283759279840918048209384937298748326598372980289028490732975932758965875289578575557557575555555558327483278472893758758575987582758-D-BSZ';
+const CATBOX_API = 'https://catbox.moe/user/api.php';
+const DEFAULT_IMAGE = 'https://files.catbox.moe/ekm4z2.jpg';
+
+// Estado de la aplicación
+let currentCategory = null;
+let currentCategoryId = null;
+let currentCategoryKey = null;
+let uploadedImageUrl = null;
+let onlineUsers = new Set();
+let totalPosts = 0;
+let totalComments = 0;
+
+// Elementos DOM
+const mainView = document.getElementById('main-view');
+const categoryView = document.getElementById('category-view');
+const categoryName = document.getElementById('category-name');
+const categoryDescription = document.getElementById('category-description');
+const categoryThreads = document.getElementById('category-threads');
+const categoryForm = document.getElementById('category-form');
+const categoryIdInput = document.getElementById('category-id');
+const categoryKeyInput = document.getElementById('category-key');
+const backBtn = document.getElementById('back-btn');
+const submitBtn = document.getElementById('submit-btn');
+const postFileInput = document.getElementById('post-file');
+const uploadStatus = document.getElementById('post-upload-status');
+const imagePreview = document.getElementById('image-preview');
+const onlineCountElement = document.getElementById('online-count');
+
+// Información de categorías COMPLETA
+const categories = {
+  mexico: { name: "México", description: "Discusión sobre la cultura, gastronomía y lugares turísticos de México", id: 2 },
+  chile: { name: "Chile", description: "Conversación sobre la geografía única y la economía chilena", id: 3 },
+  argentina: { name: "Argentina", description: "Debate sobre el tango, el fútbol y la situación política actual", id: 4 },
+  costarica: { name: "Costa Rica", description: "Intercambio sobre ecoturismo y biodiversidad en Costa Rica", id: 5 },
+  brasil: { name: "Brasil", description: "Carnaval, playas y la selva amazónica: todo sobre Brasil", id: 6 },
+  colombia: { name: "Colombia", description: "Café, música y ciudades vibrantes: explorando Colombia", id: 7 },
+  peru: { name: "Perú", description: "Machu Picchu, gastronomía y la rica historia peruana", id: 8 },
+  uruguay: { name: "Uruguay", description: "Playas, tranquilidad y desarrollo en Uruguay", id: 9 },
+  ecuador: { name: "Ecuador", description: "Islas Galápagos y la diversidad geográfica de Ecuador", id: 10 },
+  funas: { name: "Funas en redes sociales", description: "¿Son las funas una forma efectiva de justicia social o acoso digital?", id: 11 },
+  odio: { name: "Odio en internet", description: "Cómo combatir el discurso de odio en plataformas digitales", id: 12 },
+  laborales: { name: "Denuncias laborales", description: "Comparte experiencias y consejos sobre denuncias en el ámbito laboral", id: 13 },
+  acoso: { name: "Acoso escolar", description: "Estrategias para identificar y denunciar casos de bullying", id: 14 },
+  discriminacion: { name: "Discriminación", description: "Casos y formas de combatir la discriminación en nuestra sociedad", id: 15 },
+  politica: { name: "Política actual", description: "Debate sobre las últimas decisiones y tendencias políticas", id: 16 },
+  tecnologia: { name: "Tecnología", description: "Avances tecnológicos que están cambiando nuestro mundo", id: 17 },
+  medioambiente: { name: "Medio ambiente", description: "Cambio climático y acciones para proteger nuestro planeta", id: 18 },
+  educacion: { name: "Educación", description: "Nuevos métodos de enseñanza y reformas educativas", id: 19 },
+  economia: { name: "Economía", description: "Tendencias económicas globales y su impacto local", id: 20 }
+};
+
+// Funciones de utilidad
+function formatDate(dateString) {
+  try {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES') + ' ' + date.toLocaleTimeString('es-ES');
+  } catch (error) {
+    return 'Fecha desconocida';
+  }
+}
+
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+
+// Función para generar un ID único de usuario
+function generateUserId() {
+  return 'user_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Función para rastrear usuarios en línea
+function trackOnlineUser() {
+  let userId = localStorage.getItem('forum_user_id');
+  if (!userId) {
+    userId = generateUserId();
+    localStorage.setItem('forum_user_id', userId);
+  }
+  
+  onlineUsers.add(userId);
+  updateOnlineStats();
+  
+  localStorage.setItem('last_activity', Date.now());
+}
+
+// Función para actualizar estadísticas en línea
+function updateOnlineStats() {
+  const now = Date.now();
+  const inactiveThreshold = 15 * 60 * 1000;
+  
+  onlineUsers.forEach(userId => {
+    const lastActivity = localStorage.getItem(`activity_${userId}`);
+    if (lastActivity && (now - parseInt(lastActivity)) > inactiveThreshold) {
+      onlineUsers.delete(userId);
+    }
+  });
+  
+  onlineCountElement.textContent = onlineUsers.size;
+  setTimeout(updateOnlineStats, 60000);
+}
+
+// Función para contar posts y comentarios totales
+async function countTotalPostsAndComments() {
+  try {
+    let totalPostsCount = 0;
+    let totalCommentsCount = 0;
+    
+    for (const categoryKey in categories) {
+      const category = categories[categoryKey];
+      const categoryData = await fetchCategoryData(category.id, categoryKey);
+      const threads = categoryData[categoryKey] || [];
+      
+      totalPostsCount += threads.length;
+      
+      threads.forEach(thread => {
+        if (thread.replies && Array.isArray(thread.replies)) {
+          totalCommentsCount += thread.replies.length;
+          
+          thread.replies.forEach(reply => {
+            if (reply.nestedReplies && Array.isArray(reply.nestedReplies)) {
+              totalCommentsCount += reply.nestedReplies.length;
+            }
+          });
+        }
+      });
+    }
+    
+    totalPosts = totalPostsCount;
+    totalComments = totalCommentsCount;
+    
+    updateStatsDisplay();
+    
+  } catch (error) {
+    console.error('Error counting posts and comments:', error);
+  }
+}
+
+// Función para actualizar la visualización de estadísticas
+function updateStatsDisplay() {
+  const statsElement = document.getElementById('forum-stats');
+  if (!statsElement) {
+    const newStatsElement = document.createElement('div');
+    newStatsElement.className = 'forum-stats';
+    newStatsElement.id = 'forum-stats';
+    newStatsElement.innerHTML = `
+      <div class="stats-container">
+        <div class="stat-item">
+          <i class="fas fa-file-alt"></i>
+          <span class="stat-label">Total Posts:</span>
+          <span class="stat-value">${totalPosts}</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-comments"></i>
+          <span class="stat-label">Total Comentarios:</span>
+          <span class="stat-value">${totalComments}</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-chart-line"></i>
+          <span class="stat-label">Actividad Total:</span>
+          <span class="stat-value">${totalPosts + totalComments}</span>
+        </div>
+      </div>
+    `;
+    
+    const onlineUsersElement = document.querySelector('.online-users');
+    onlineUsersElement.parentNode.insertBefore(newStatsElement, onlineUsersElement.nextSibling);
+  } else {
+    statsElement.innerHTML = `
+      <div class="stats-container">
+        <div class="stat-item">
+          <i class="fas fa-file-alt"></i>
+          <span class="stat-label">Total Posts:</span>
+          <span class="stat-value">${totalPosts}</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-comments"></i>
+          <span class="stat-label">Total Comentarios:</span>
+          <span class="stat-value">${totalComments}</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-chart-line"></i>
+          <span class="stat-label">Actividad Total:</span>
+          <span class="stat-value">${totalPosts + totalComments}</span>
+        </div>
+      </div>
+    `;
+  }
+}
+
+// Función para subir imagen a Catbox.moe
+async function handleImageUpload(file) {
+  const allowedTypes = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
+  if (!allowedTypes.includes(file.type)) {
+    throw new Error("Por favor, selecciona una imagen válida (PNG, JPG, WEBP, GIF).");
+  }
+
+  const formData = new FormData();
+  formData.append('reqtype', 'fileupload');
+  formData.append('fileToUpload', file);
+
+  try {
+    uploadStatus.textContent = 'Subiendo imagen...';
+    
+    const response = await fetch('https://cors-anywhere.herokuapp.com/https://catbox.moe/user/api.php', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await response.text();
+
+    if (response.ok && data.startsWith("https://")) {
+      uploadStatus.textContent = 'Imagen cargada exitosamente.';
+      uploadedImageUrl = data;
+
+      imagePreview.innerHTML = '';
+      const imgElement = document.createElement('img');
+      imgElement.src = uploadedImageUrl;
+      imgElement.alt = "Imagen cargada";
+      imgElement.style.maxWidth = '200px';
+      imgElement.style.maxHeight = '200px';
+      imagePreview.appendChild(imgElement);
+
+      return uploadedImageUrl;
+    } else {
+      throw new Error("Hubo un problema al subir el archivo. Por favor, inténtalo de nuevo.");
+    }
+  } catch (error) {
+    throw new Error("Error de conexión al subir el archivo: " + error.message);
+  }
+}
+
+// CORREGIDO: Funciones para interactuar con la API
+async function fetchCategoryData(categoryId, categoryKey) {
+  try {
+    const response = await fetch(`${API_BASE}/${categoryId}`);
+    
+    if (!response.ok) {
+      // Si no existe, crear la categoría con estructura correcta
+      return await initializeCategory(categoryId, categoryKey);
+    }
+    
+    const data = await response.json();
+    
+    // Verificar que la estructura sea correcta
+    if (!data[categoryKey]) {
+      data[categoryKey] = [];
+      await updateCategory(categoryId, data);
+    }
+    
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    showError('No se pudieron cargar los hilos de esta categoría.');
+    // Retornar estructura vacía
+    const data = {};
+    data[categoryKey] = [];
+    return { id: categoryId.toString(), ...data };
+  }
+}
+
+// CORREGIDO: Inicializar categoría con estructura correcta
+async function initializeCategory(categoryId, categoryKey) {
+  const categoryData = {
+    id: categoryId.toString()
+  };
+  categoryData[categoryKey] = []; // Solo la categoría específica
+  
+  try {
+    const response = await fetch(API_BASE, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(categoryData)
+    });
+    
+    if (!response.ok) throw new Error('Error al inicializar la categoría');
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error:', error);
+    showError('No se pudo inicializar la categoría.');
+    return categoryData; // Retornar la estructura local
+  }
+}
+
+// CORREGIDO: Actualizar categoría manteniendo estructura
+async function updateCategory(categoryId, categoryData) {
+  try {
+    const response = await fetch(`${API_BASE}/${categoryId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(categoryData)
+    });
+    
+    if (!response.ok) throw new Error('Error al actualizar la categoría');
+    return await response.json();
+  } catch (error) {
+    console.error('Error:', error);
+    showError('No se pudo actualizar la categoría. Intenta nuevamente.');
+    throw error;
+  }
+}
+
+// Función para crear formulario de comentario
+function createCommentForm(threadId, threadSubject, parentReplyId = null) {
+  const formId = parentReplyId ? `comment-form-${threadId}-${parentReplyId}` : `comment-form-${threadId}`;
+  const form = document.createElement('div');
+  form.className = 'comment-form';
+  form.id = formId;
+  form.style.display = 'block';
+  
+  form.innerHTML = `
+    <div class="comment-header">
+      <strong>Respondiendo a:</strong> ${threadSubject || 'Hilo'} 
+      ${parentReplyId ? `| <strong>Respuesta ID:</strong> ${parentReplyId}` : ''}
+    </div>
+    <div class="form-group">
+      <label for="comment-name-${formId}">Nombre:</label>
+      <input type="text" id="comment-name-${formId}" placeholder="Anónimo">
+    </div>
+    <div class="form-group">
+      <label for="comment-text-${formId}">Comentario:</label>
+      <textarea id="comment-text-${formId}" required placeholder="Escribe tu comentario aquí..."></textarea>
+    </div>
+    <div class="comment-controls">
+      <button type="button" class="submit-comment" data-thread="${threadId}" data-parent="${parentReplyId || ''}">
+        Enviar Comentario
+      </button>
+      <button type="button" class="cancel-comment">Cancelar</button>
+    </div>
+  `;
+  return form;
+}
+
+// CORREGIDO: Función para cargar hilos de categoría
+async function loadCategoryThreads(categoryId, categoryKey) {
+  categoryThreads.innerHTML = '<div class="loading">Cargando hilos...</div>';
+  
+  try {
+    const categoryData = await fetchCategoryData(categoryId, categoryKey);
+    const threads = categoryData[categoryKey] || [];
+    
+    categoryThreads.innerHTML = '';
+    
+    if (threads.length === 0) {
+      categoryThreads.innerHTML = '<div class="error">No hay hilos en esta categoría. ¡Sé el primero en publicar!</div>';
+      return;
+    }
+    
+    threads.forEach(thread => {
+      const threadElement = document.createElement('div');
+      threadElement.className = 'thread';
+      threadElement.id = `thread-${thread.id}`;
+      
+      // Generar HTML para replies
+      let repliesHTML = '';
+      if (thread.replies && Array.isArray(thread.replies) && thread.replies.length > 0) {
+        repliesHTML = `
+          <div class="replies">
+            ${thread.replies.map(reply => {
+              let nestedRepliesHTML = '';
+              if (reply.nestedReplies && Array.isArray(reply.nestedReplies) && reply.nestedReplies.length > 0) {
+                nestedRepliesHTML = `
+                  <div class="nested-replies">
+                    ${reply.nestedReplies.map(nestedReply => `
+                      <div class="nested-reply">
+                        <div class="reply-header">
+                          <div>
+                            <span class="reply-name">${nestedReply.name || 'Anónimo'}</span>
+                          </div>
+                          <div>
+                            <span class="reply-date">${formatDate(nestedReply.date)}</span>
+                            <span class="reply-id">No.${nestedReply.id}</span>
+                          </div>
+                        </div>
+                        <div class="reply-content">
+                          ${nestedReply.comment || ''}
+                        </div>
+                      </div>
+                    `).join('')}
+                  </div>
+                `;
+              }
+              
+              return `
+                <div class="reply" id="reply-${reply.id}">
+                  <div class="reply-header">
+                    <div>
+                      <span class="reply-name">${reply.name || 'Anónimo'}</span>
+                    </div>
+                    <div>
+                      <span class="reply-date">${formatDate(reply.date)}</span>
+                      <span class="reply-id">No.${reply.id}</span>
+                    </div>
+                  </div>
+                  <div class="reply-content">
+                    ${reply.comment || ''}
+                  </div>
+                  <button class="reply-btn" data-thread="${thread.id}" data-reply="${reply.id}">
+                    <i class="fas fa-reply"></i> Responder
+                  </button>
+                  ${nestedRepliesHTML}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+      
+      const userName = thread.name || 'Anónimo';
+      const imageUrl = thread.file || DEFAULT_IMAGE;
+      
+      threadElement.innerHTML = `
+        <div class="post">
+          <div class="post-header">
+            <div>
+              <span class="post-subject">${thread.subject || 'Sin asunto'}</span>
+            </div>
+            <div>
+              <span class="post-date">${formatDate(thread.date)}</span>
+              <span class="post-id">No.${thread.id || '1'}</span>
+              <button class="comment-btn" data-thread="${thread.id}" data-subject="${thread.subject || 'Hilo'}">
+                <i class="fas fa-reply"></i> Comentar
+              </button>
+            </div>
+          </div>
+          <div class="post-content">
+            <div class="post-container">
+              <div class="post-file">
+                <img src="${imageUrl}" alt="Imagen adjunta" onerror="this.style.display='none'">
+                <div class="file-info">${userName}</div>
+              </div>
+              <div class="post-text">
+                <p>${thread.comment || ''}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        ${repliesHTML}
+      `;
+      
+      categoryThreads.appendChild(threadElement);
+      
+      // Configurar evento para el botón de comentar principal
+      const commentBtn = threadElement.querySelector('.comment-btn');
+      if (commentBtn) {
+        commentBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const threadId = this.getAttribute('data-thread');
+          const threadSubject = this.getAttribute('data-subject');
+          const existingForm = document.getElementById(`comment-form-${threadId}`);
+          
+          if (existingForm) {
+            existingForm.remove();
+          } else {
+            document.querySelectorAll('.comment-form').forEach(form => form.remove());
+            
+            const commentForm = createCommentForm(threadId, threadSubject);
+            threadElement.appendChild(commentForm);
+            
+            const submitBtn = commentForm.querySelector('.submit-comment');
+            const cancelBtn = commentForm.querySelector('.cancel-comment');
+            
+            submitBtn.addEventListener('click', async function() {
+              await submitComment(threadId, categoryId, categoryKey);
+            });
+            
+            cancelBtn.addEventListener('click', function() {
+              commentForm.remove();
+            });
+          }
+        });
+      }
+      
+      // Configurar eventos para botones de responder a comentarios
+      threadElement.querySelectorAll('.reply-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const threadId = this.getAttribute('data-thread');
+          const replyId = this.getAttribute('data-reply');
+          const existingForm = document.getElementById(`comment-form-${threadId}-${replyId}`);
+          
+          if (existingForm) {
+            existingForm.remove();
+          } else {
+            document.querySelectorAll('.comment-form').forEach(form => form.remove());
+            
+            const replyElement = document.getElementById(`reply-${replyId}`);
+            if (replyElement) {
+              const commentForm = createCommentForm(threadId, 'Respuesta', replyId);
+              replyElement.appendChild(commentForm);
+              
+              const submitBtn = commentForm.querySelector('.submit-comment');
+              const cancelBtn = commentForm.querySelector('.cancel-comment');
+              
+              submitBtn.addEventListener('click', async function() {
+                await submitComment(threadId, categoryId, categoryKey, replyId);
+              });
+              
+              cancelBtn.addEventListener('click', function() {
+                commentForm.remove();
+              });
+            }
+          }
+        });
+      });
+    });
+    
+  } catch (error) {
+    console.error('Error loading threads:', error);
+    categoryThreads.innerHTML = '<div class="error">Error al cargar los hilos: ' + error.message + '</div>';
+  }
+}
+
+// CORREGIDO: Función para enviar comentario
+async function submitComment(threadId, categoryId, categoryKey, parentReplyId = null) {
+  const formId = parentReplyId ? `comment-form-${threadId}-${parentReplyId}` : `comment-form-${threadId}`;
+  const commentNameInput = document.getElementById(`comment-name-${formId}`);
+  const commentTextInput = document.getElementById(`comment-text-${formId}`);
+  
+  if (!commentNameInput || !commentTextInput) {
+    showError('No se pudo encontrar el formulario de comentario');
+    return;
+  }
+  
+  const commentName = commentNameInput.value || 'Anónimo';
+  const commentText = commentTextInput.value;
+  
+  if (!commentText.trim()) {
+    alert('Por favor, escribe un comentario');
+    return;
+  }
+  
+  try {
+    const categoryData = await fetchCategoryData(categoryId, categoryKey);
+    const threads = categoryData[categoryKey] || [];
+    
+    // Encontrar el hilo
+    const threadIndex = threads.findIndex(t => t.id === threadId);
+    if (threadIndex === -1) {
+      throw new Error('Hilo no encontrado');
+    }
+    
+    // Crear el comentario
+    const comment = {
+      id: generateId(),
+      name: commentName,
+      comment: commentText,
+      date: new Date().toISOString()
+    };
+    
+    if (parentReplyId) {
+      // Es una respuesta a otro comentario
+      if (!threads[threadIndex].replies) {
+        threads[threadIndex].replies = [];
+      }
+      
+      const replyIndex = threads[threadIndex].replies.findIndex(r => r.id === parentReplyId);
+      if (replyIndex === -1) {
+        throw new Error('Comentario padre no encontrado');
+      }
+      
+      if (!threads[threadIndex].replies[replyIndex].nestedReplies) {
+        threads[threadIndex].replies[replyIndex].nestedReplies = [];
+      }
+      
+      threads[threadIndex].replies[replyIndex].nestedReplies.push(comment);
+    } else {
+      // Es un comentario directo al hilo
+      if (!threads[threadIndex].replies) {
+        threads[threadIndex].replies = [];
+      }
+      threads[threadIndex].replies.push(comment);
+    }
+    
+    // Actualizar en la API
+    await updateCategory(categoryId, categoryData);
+    
+    // Actualizar estadísticas
+    await countTotalPostsAndComments();
+    
+    showSuccess('¡Comentario agregado correctamente!');
+    loadCategoryThreads(categoryId, categoryKey);
+    
+  } catch (error) {
+    console.error('Error submitting comment:', error);
+    showError('Error al agregar el comentario: ' + error.message);
+  }
+}
+
+// Funciones para mostrar contenido
+function showCategory(categoryKey) {
+  const category = categories[categoryKey];
+  if (!category) return;
+  
+  currentCategory = category;
+  currentCategoryId = category.id;
+  currentCategoryKey = categoryKey;
+  
+  categoryName.textContent = category.name;
+  categoryDescription.textContent = category.description;
+  categoryIdInput.value = category.id;
+  categoryKeyInput.value = categoryKey;
+  
+  mainView.classList.add('hidden');
+  categoryView.classList.remove('hidden');
+  
+  loadCategoryThreads(category.id, categoryKey);
+}
+
+function showMainView() {
+  categoryView.classList.add('hidden');
+  mainView.classList.remove('hidden');
+  currentCategory = null;
+  currentCategoryId = null;
+  currentCategoryKey = null;
+  uploadedImageUrl = null;
+  imagePreview.innerHTML = '';
+  uploadStatus.textContent = '';
+}
+
+function showError(message) {
+  const errorDiv = document.createElement('div');
+  errorDiv.className = 'error';
+  errorDiv.textContent = message;
+  
+  document.querySelector('.container').insertBefore(errorDiv, document.querySelector('.board-nav'));
+  
+  setTimeout(() => {
+    errorDiv.remove();
+  }, 5000);
+}
+
+function showSuccess(message) {
+  const successDiv = document.createElement('div');
+  successDiv.className = 'success';
+  successDiv.textContent = message;
+  
+  document.querySelector('.container').insertBefore(successDiv, document.querySelector('.board-nav'));
+  
+  setTimeout(() => {
+    successDiv.remove();
+  }, 3000);
+}
+
+// Configurar eventos
+document.addEventListener('DOMContentLoaded', function() {
+  // Inicializar rastreo de usuarios en línea
+  trackOnlineUser();
+  
+  // Contar posts y comentarios totales
+  countTotalPostsAndComments();
+  
+  // Configurar eventos para los previews de categorías
+  const threadPreviews = document.querySelectorAll('.thread-preview');
+  threadPreviews.forEach(preview => {
+    preview.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const category = this.getAttribute('data-category');
+      showCategory(category);
+    });
+  });
+  
+  // Evento para subir imagen
+  postFileInput.addEventListener('change', async function(e) {
+    if (this.files.length > 0) {
+      try {
+        await handleImageUpload(this.files[0]);
+      } catch (error) {
+        uploadStatus.textContent = error.message;
+      }
+    }
+  });
+  
+  // Configurar otros eventos
+  backBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    showMainView();
+  });
+  
+  // Botón Server Temporal
+  document.getElementById('refresh-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open('https://cors-anywhere.herokuapp.com/corsdemo', '_blank');
+  });
+  
+  // Botón Información
+  document.getElementById('new-thread-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    alert(` RedChan - EOFED 
+
+ ESTADÍSTICAS:
+• Usuarios en línea: ${onlineUsers.size}
+• Total de Posts: ${totalPosts}
+• Total de Comentarios: ${totalComments}
+• Actividad Total: ${totalPosts + totalComments}
+
+ CARACTERÍSTICAS:
+• Foro anónimo de discusión
+• Categorías organizadas
+• Sistema de comentarios anidados
+• Subida de imágenes automática
+• Estadísticas en tiempo real
+
+ INFORMACIÓN:
+Este es un foro de discusión general donde puedes expresar
+opiniones, denuncias, funas y cualquier tipo de contenido.
+
+ PRIVACIDAD:
+• No se requiere registro
+• Comentarios anónimos
+• Imágenes subidas a servidor externo
+
+¡Disfruta del foro y participa activamente!`);
+  });
+  
+  // Botón RedChan
+  document.getElementById('rules-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open('https://redchan.foroactivo.com/h2-rechan-file', '_blank');
+  });
+  
+  categoryForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const originalButtonText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+    
+    const formData = new FormData(this);
+    
+    const finalImageUrl = uploadedImageUrl || DEFAULT_IMAGE;
+    
+    const postData = {
+      id: generateId(),
+      name: formData.get('name') || 'Anónimo',
+      subject: formData.get('subject'),
+      comment: formData.get('comment'),
+      file: finalImageUrl,
+      date: new Date().toISOString(),
+      replies: []
+    };
+    
+    try {
+      const categoryData = await fetchCategoryData(currentCategoryId, currentCategoryKey);
+      
+      if (!categoryData[currentCategoryKey]) {
+        categoryData[currentCategoryKey] = [];
+      }
+      
+      categoryData[currentCategoryKey].unshift(postData);
+      await updateCategory(currentCategoryId, categoryData);
+      
+      this.reset();
+      uploadStatus.textContent = '';
+      imagePreview.innerHTML = '';
+      uploadedImageUrl = null;
+      
+      await countTotalPostsAndComments();
+      
+      showSuccess('¡Publicación creada correctamente!');
+      loadCategoryThreads(currentCategoryId, currentCategoryKey);
+    } catch (error) {
+      // Error ya manejado en updateCategory
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalButtonText;
+    }
+  });
+  
+  console.log('Aplicación inicializada correctamente');
+});
+</script>
+</body>
+</html>
